@@ -1,0 +1,23 @@
+{
+  "name": "nifty-boilerplate",
+  "version": "1.0.0",
+  "authors": [
+    "Matt Mischuk <matt@distance7.com>"
+  ],
+  "description": "A Javascript, Sass and Gulp based scaffolding.",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "app/assets/bower_components"
+  ],
+  "dependencies": {
+    "normalize-scss": "~3.0.3",
+    "bourbon": "~4.2.3",
+    "neat": "~1.7.2"
+  }
+}
