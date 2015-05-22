@@ -34,23 +34,14 @@ gulp.task('lint', function() {
 gulp.task('sass', function() {
   return gulp.src(stylesSrc + '/**/*.scss')
     .pipe(sourcemaps.init())
-    .pipe(sass({
-      errLogToConsole: false,
-      onError: function(err) {
-        return notify({
-          title: "Gulp Sass Error",
-          sound: "Basso"
-        }).write(err);
-      }
+    .pipe(sass())
+    .on('error', notify.onError({
+      title: 'Sass Compile Error',
+      sound: 'Basso'
     }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(stylesDest))
-    .pipe(connect.reload())
-    .pipe(notify({
-      title: "Gulp Sass",
-      sound: "Pop",
-      message: "Sass compiled successfully!"
-    }));
+    .pipe(connect.reload());
 });
 
 // Concatenate & Minify JS
