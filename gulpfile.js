@@ -13,11 +13,18 @@ var sass = require('gulp-sass'),
   sourcemaps = require('gulp-sourcemaps');
 
 // Paths
-var stylesSrc = 'app/assets/stylesheets',
-  stylesDest = 'app/dist/stylesheets';
+var SRC = 'src';
+var DEST = 'dist';
+var ROOT = DEST;
 
-var javascriptSrc = 'app/assets/javascript',
-  javascriptDest = 'app/dist/javascript';
+var STYLES_SRC = ROOT + '/stylesheets';
+var STYLES_DEST = DEST + '/stylesheets';
+
+var JAVASCRIPT_SRC = ROOT + '/javascript';
+var JAVASCRIPT_DEST = DEST + '/javascript';
+
+var HTML_SRC = SRC;
+var HTML_DEST = ROOT;
 
 
 // Tasks
@@ -25,14 +32,14 @@ var javascriptSrc = 'app/assets/javascript',
 
 // Lint Task
 gulp.task('lint', function() {
-  return gulp.src(javascriptSrc + '/**/*.js')
+  return gulp.src(JAVASCRIPT_SRC + '/**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
 
 // Compile and Source Map our Sass
-gulp.task('sass', function() {
-  return gulp.src(stylesSrc + '/**/*.scss')
+gulp.task('dev:scss', function() {
+  return gulp.src(STYLES_SRC + '/main.scss')
     .pipe(sourcemaps.init())
     .pipe(sass())
     .on('error', notify.onError({
@@ -40,31 +47,30 @@ gulp.task('sass', function() {
       sound: 'Basso'
     }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(stylesDest))
+    .pipe(gulp.dest(STYLES_DEST))
     .pipe(connect.reload());
 });
 
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
-  gulp.src(javascriptSrc + '/**/*.js')
-    .pipe(concat('app.js'))
-    .pipe(gulp.dest(javascriptDest))
-    .pipe(rename('app.min.js'))
+  gulp.src(JAVASCRIPT_SRC + '/**/*.js')
+    .pipe(concat('bundle.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(javascriptDest))
+    .pipe(gulp.dest(JAVASCRIPT_DEST))
     .pipe(connect.reload());
 });
 
 // Refresh when HTML changes
 gulp.task('html', function () {
-  gulp.src('app/**/*.html')
+  gulp.src(HTML_SRC + '/**/*.html')
+    .pipe(gulp.dest(HTML_DEST))
     .pipe(connect.reload());
 });
 
 // Start Webserver
 gulp.task('connect', function() {
   connect.server({
-    root: 'app',
+    root: 'dist',
     livereload: true
   });
 });
@@ -73,16 +79,16 @@ gulp.task('connect', function() {
 gulp.task('watch', function () {
 
   // Watch .html files
-  gulp.watch(['app/**/*.html'], ['html']);
+  gulp.watch([HTML_SRC + '/**/*.html'], ['html']);
 
   // Watch .scss files
-  gulp.watch(['app/**/*.scss'], ['sass']);
+  gulp.watch([STYLES_SRC + '/**/*.scss'], ['dev:scss']);
 
   // Watch .js files
-  gulp.watch(['app/**/*.js'], ['scripts']);
+  gulp.watch([JAVASCRIPT_SRC + '/**/*.js'], ['scripts']);
 
 });
 
 
 // Default Task
-gulp.task('default', ['sass', 'scripts', 'connect', 'watch']);
+gulp.task('default', ['html', 'dev:scss', 'scripts', 'connect', 'watch']);
