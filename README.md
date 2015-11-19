@@ -8,6 +8,6 @@ Node.js or io.js is a requirement. See [Node.js](https://nodejs.org) or [io.js](
 
 Run the following commands:
 
-1. `npm install`
-2. `bower install`
-3. `gulp`
+1. `npm install gulp -g`
+2. `npm install`
+3. `npm start`

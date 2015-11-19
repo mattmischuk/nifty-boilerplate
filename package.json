@@ -4,7 +4,7 @@
   "description": "A Javascript, Sass and Gulp based scaffolding.",
   "main": "index.html",
   "scripts": {
-    "test": "gulp test"
+    "start": "gulp"
   },
   "author": "Matt Mischuk <matt@distance7.com>",
   "license": "MIT",
@@ -21,5 +21,13 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
     "node-normalize-scss": "^1.0.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattmischuk/nifty-boilerplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mattmischuk/nifty-boilerplate/issues"
+  },
+  "homepage": "https://github.com/mattmischuk/nifty-boilerplate#readme"
 }
