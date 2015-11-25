@@ -15,17 +15,17 @@ var sass = require('gulp-sass'),
 // Paths
 var SRC = 'src';
 var DEST = 'dist';
-var ROOT = DEST;
 
-var STYLES_SRC = ROOT + '/stylesheets';
+var STYLES_SRC = SRC + '/stylesheets';
 var STYLES_DEST = DEST + '/stylesheets';
 
-var JAVASCRIPT_SRC = ROOT + '/javascript';
+var JAVASCRIPT_SRC = SRC + '/javascript';
 var JAVASCRIPT_DEST = DEST + '/javascript';
 
 var HTML_SRC = SRC;
-var HTML_DEST = ROOT;
+var HTML_DEST = DEST;
 
+var ROOT = DEST;
 
 // Tasks
 // ----------------------------------------
@@ -70,7 +70,7 @@ gulp.task('html', function () {
 // Start Webserver
 gulp.task('connect', function() {
   connect.server({
-    root: 'dist',
+    root: ROOT,
     livereload: true
   });
 });
